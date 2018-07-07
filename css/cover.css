@@ -2,6 +2,6 @@ html, body {
     height: 100%
 }
 
-.masthead {
-    margin-bottom: 2rem;
+.cover {
+    max-width: 80rem;
 }
