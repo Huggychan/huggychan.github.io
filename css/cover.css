@@ -2,6 +2,10 @@ html, body {
     height: 100%
 }
 
+.body-cover {
+    overflow: hidden;
+}
+
 .container-cover {
     max-width: 30em;
 }
