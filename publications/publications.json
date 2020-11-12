@@ -1,5 +1,12 @@
 [
     {
+        "conference" : "Rose-Hulman Undergraduate Mathematics Journal",
+        "title" : "On the Enumeration of Shapes",
+        "authors" : "May Cai, Nicholas Liao",
+        "body" : "We define a shape as a union of finitely many line segments. Given an arrangement of lines on a plane, we count the number of shapes in the arrangement by examining the symmetries of the arrangement and applying Burnside's lemma. We further establish a generating function for the number of distinct line segments on a line with k distinguished points. We list all affine line arrangements of four and five line segments, together with the corresponding number of shapes on them.",
+        "link" : "https://scholar.rose-hulman.edu/rhumj/vol21/iss1/3/"
+    },
+    {
         "conference" : "Fourteenth AAAI Conference on Artificial Intelligence and Interactive Digital Entertainment (AIIDE-18)",
         "title" : "Player Experience Extraction from Gameplay Video",
         "authors" : "Zijin Luo, Matthew Guzdial, Nicholas Liao, Mark Riedl",
