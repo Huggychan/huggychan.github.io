@@ -3,7 +3,8 @@ html, body {
 }
 
 .body-cover {
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .container-cover {

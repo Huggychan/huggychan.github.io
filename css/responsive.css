@@ -1,0 +1,335 @@
+/* Modern Responsive Styles for Nicholas Liao's Portfolio */
+
+/* CSS Custom Properties for consistent theming */
+:root {
+  --primary-bg: #1b2735;
+  --secondary-bg: #090a0f;
+  --text-light: #ffffff;
+  --text-muted: #c9c8cd;
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --accent-color: #007bff;
+  --transition: all 0.3s ease;
+  --border-radius: 8px;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Base styles */
+html, body {
+  height: auto;
+  min-height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+.body-cover {
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: radial-gradient(ellipse at bottom, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+  min-height: 100vh;
+}
+
+/* Fix stars positioning to prevent gaps */
+#stars, #stars2, #stars3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+/* Typography improvements */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-light);
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* Simple navbar improvements - keep original structure */
+.navbar {
+  margin-top: -1px; /* Small adjustment to eliminate tiny gap */
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-light) !important;
+  border-radius: 4px;
+}
+
+/* Container improvements */
+.container-cover {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.container-resume {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Card improvements */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius);
+  backdrop-filter: blur(10px);
+  transition: var(--transition);
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.card-header {
+  background: rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--card-border);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.card-title {
+  color: var(--text-light);
+  margin-bottom: 0.75rem;
+}
+
+.card-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.card-title a:hover {
+  color: var(--accent-color);
+}
+
+.card-text {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+/* Profile image improvements */
+.profile-image {
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  max-width: 100%;
+  height: auto;
+}
+
+.profile-image:hover {
+  transform: scale(1.02);
+}
+
+/* Jumbotron improvements */
+.jumbotron {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius);
+  backdrop-filter: blur(10px);
+  color: var(--text-light);
+  padding: 3rem 2rem;
+}
+
+/* Cover heading */
+.cover-heading {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #ffffff, #a8b8d8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Iframe improvements */
+iframe {
+  display: block;
+  width: 100%;
+  height: 600px;
+  border: none;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+/* Footer improvements */
+footer {
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid var(--card-border);
+  padding: 2rem 0;
+  margin-top: 3rem;
+}
+
+footer p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Ensure proper layout for pages without height constraints */
+.d-flex.mx-auto.flex-column {
+  min-height: 100vh;
+}
+
+.d-flex.mx-auto.flex-column footer {
+  margin-top: auto;
+}
+
+/* Override height constraints for content-heavy pages */
+body.body-cover {
+  height: auto !important;
+}
+
+html, body {
+  height: auto !important;
+  min-height: 100% !important;
+}
+
+/* Image gallery improvements */
+.img-fluid {
+  border-radius: var(--border-radius);
+  margin: 0.5rem;
+  transition: var(--transition);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.img-fluid:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cover-heading {
+    font-size: 2rem;
+  }
+  
+  .container-cover,
+  .container-resume {
+    padding: 1rem;
+  }
+  
+  .jumbotron {
+    padding: 2rem 1rem;
+  }
+  
+  .card-body {
+    padding: 1rem;
+  }
+  
+  iframe {
+    height: 400px;
+  }
+  
+  .navbar-nav {
+    text-align: center;
+  }
+  
+  .navbar-nav .nav-link {
+    margin: 0.25rem 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .cover-heading {
+    font-size: 1.75rem;
+  }
+  
+  .container-cover {
+    max-width: 100%;
+    padding: 0.5rem;
+  }
+  
+  .jumbotron {
+    padding: 1.5rem 1rem;
+    margin: 0.5rem;
+  }
+  
+  iframe {
+    height: 300px;
+  }
+  
+  .img-fluid {
+    margin: 0.25rem;
+  }
+}
+
+/* Animation improvements */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.card:nth-child(2) { animation-delay: 0.1s; }
+.card:nth-child(3) { animation-delay: 0.2s; }
+.card:nth-child(4) { animation-delay: 0.3s; }
+.card:nth-child(5) { animation-delay: 0.4s; }
+
+/* Focus styles for accessibility */
+.nav-link:focus,
+.card:focus,
+a:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* Instagram embed centering */
+.instagram-media {
+  margin: 1rem auto !important;
+  display: block !important;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  #stars,
+  #stars2,
+  #stars3 {
+    animation: none !important;
+  }
+}

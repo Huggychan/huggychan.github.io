@@ -1,15 +1,79 @@
-$.getJSON("publications/publications.json", function(json) {
-    for (var i = 0; i < json.length; i++) {
-        var card = json[i];
-        console.log(card);
-        $('#cards').append(
-            "<div class=\"card border-dark mb-3\">" +
-            "<div class=\"card-header\">" + card["conference"] + "</div>" +
-            "<div class=\"card-body\">" +
-            "<h4 class=\"card-title\"><a href=" + card["link"] + ">" + card["title"] + "</a></h4>" +
-            "<h5 class=\"card-title\">" + card["authors"] + "</h5>" +
-            "<p class=\"card-text\">" + card["body"] + "</p>" +
-            "</div></div>"
-        );
+// Publications loader with fallback for both local and hosted environments
+$(document).ready(function() {
+    console.log('Loading publications...');
+    
+    // Try to load from JSON first (works when hosted)
+    $.getJSON("publications/publications.json")
+        .done(function(json) {
+            console.log('Publications loaded from JSON:', json.length);
+            loadPublications(json);
+        })
+        .fail(function(jqxhr, textStatus, error) {
+            console.log('JSON loading failed, using embedded data:', textStatus, error);
+            
+            // Fallback to embedded data (works locally)
+            var publicationsData = [
+                {
+                    "conference" : "Rose-Hulman Undergraduate Mathematics Journal",
+                    "title" : "On the Enumeration of Shapes",
+                    "authors" : "May Cai, Nicholas Liao",
+                    "body" : "We define a shape as a union of finitely many line segments. Given an arrangement of lines on a plane, we count the number of shapes in the arrangement by examining the symmetries of the arrangement and applying Burnside's lemma. We further establish a generating function for the number of distinct line segments on a line with k distinguished points. We list all affine line arrangements of four and five line segments, together with the corresponding number of shapes on them.",
+                    "link" : "https://scholar.rose-hulman.edu/rhumj/vol21/iss1/3"
+                },
+                {
+                    "conference" : "Fourteenth AAAI Conference on Artificial Intelligence and Interactive Digital Entertainment (AIIDE-18)",
+                    "title" : "Player Experience Extraction from Gameplay Video",
+                    "authors" : "Zijin Luo, Matthew Guzdial, Nicholas Liao, Mark Riedl",
+                    "body" : "The ability to extract the sequence of game events for a given player's play-through has traditionally required access to the game's engine or source code. This serves as a barrier to researchers, developers, and hobbyists who might otherwise benefit from these game logs. In this paper we present two approaches to derive game logs from game video via convolutional neural networks and transfer learning. We evaluate the approaches in a Super Mario Bros. clone, Mega Man and Skyrim. Our results demonstrate our approach outperforms random forest and other transfer baselines.",
+                    "link" : "https://arxiv.org/pdf/1809.06201.pdf"
+                },
+                {
+                    "conference" : "Ninth International Conference on Computational Creativity",
+                    "title" : "Creative Invention Benchmark",
+                    "authors" : "Matthew Guzdial, Nicholas Liao, Vishwa Shah, Mark O Riedl",
+                    "body" : "In this paper we present the Creative Invention Benchmark (CrIB), a 2000-problem benchmark for evaluating a particular facet of computational creativity. Specifically, we address combinational p-creativity, the creativity at play when someone combines existing knowledge to achieve a solution novel to that individual. We present generation strategies for the five problem categories of the benchmark and a set of initial baselines.",
+                    "link" : "https://arxiv.org/pdf/1805.03720.pdf"
+                },
+                {
+                    "conference" : "Proceedings of the 12th International Conference on the Foundations of Digital Games",
+                    "title" : "Deep convolutional player modeling on log and level data",
+                    "authors" : "Nicholas Liao, Matthew Guzdial, Mark Riedl",
+                    "body" : "We present a novel approach to player modeling based on a convolutional neural net trained on game event logs. We test our approach and a hybrid extension over two distinct games, a clone of Super Mario Bros. and Gwario, a human computation version of Super Mario Bros.: The Lost Levels. We demonstrate high accuracy in predicting a variety of measures of player experience across these two games. Further we present evidence that our technique derives quality design knowledge and demonstrate the ability to build a more general model.",
+                    "link" : "https://www.cc.gatech.edu/~riedl/pubs/liao-fdg17.pdf"
+                },
+                {
+                    "conference" : "INTEGRATION, the VLSI journal",
+                    "title" : "An open-source compiler and PCB synthesis tool for digital microfluidic biochips",
+                    "authors" : "Daniel Grissom, Christopher Curtis, Skyler Windh, Calvin Phung, Navin Kumar, Zachary Zimmerman, O'Neal Kenneth, Jeffrey McDaniel, Nick Liao, Philip Brisk",
+                    "body" : "This paper describes a publicly available, open source software framework designed to support research efforts on algorithms and control for digital microfluidic biochips (DMFBs), an emerging laboratory-on-a-chip (LoC) technology. The framework consists of two parts: a compiler, which converts an assay, specified using the BioCoder language, into a sequence of electrode activations that execute out the assay on the DMFB; and a printed circuit board (PCB) layout tool, which includes algorithms to reduce the number of control pins and PCB layers required to drive the chip from an external source. The framework also includes a suite of visualization tools for debugging, and a collection of front-end algorithms that generate mixing/dilution trees for sample preparation.",
+                    "link" : "https://pdfs.semanticscholar.org/0f43/9d6873e7ef9c885e60e3564d9ad1193560f2.pdf"
+                },
+                {
+                    "conference" : "IEEE/IFIP 20th International Conference on VLSI and System-on-Chip, 2012 (VLSI-SoC)",
+                    "title" : "A digital microfluidic biochip synthesis framework",
+                    "authors" : "Daniel Grissom, Kenneth O'Neal, Benjamin Preciado, Hiral Patel, Robert Doherty, Nick Liao, Philip Brisk",
+                    "body" : "Synthesis of digital microfluidic biochips (DMFBs) is a crucial to the advancement and realization of miniaturized, automated, programmable biochemistry solutions; synthesis is performed in three steps: scheduling, placement and routing. In principle, algorithms for specific steps should be interchangeable with one another; however, different research groups typically develop algorithms for each step in isolation from one another. Thus, it is difficult to compare algorithms against one another, or to determine which algorithms for different steps share synergies. We introduce an open source DMFB synthesis framework to encourage collaboration between researchers working in the area. We introduce a common interface and describe the internal data structures that must be updated to ensure that the interfaces are adhered to. We also present and describe a number of highquality 2D and 3D debugging tools that provide graphical output for each stage of synthesis.",
+                    "link" : "http://alumni.cs.ucr.edu/~grissomd/files/vlsisoc12_framework.pdf"
+                }
+            ];
+            
+            loadPublications(publicationsData);
+        });
+    
+    function loadPublications(data) {
+        for (var i = 0; i < data.length; i++) {
+            var card = data[i];
+            var cardHtml = 
+                '<div class="card border-dark mb-3">' +
+                '<div class="card-header">' + card.conference + '</div>' +
+                '<div class="card-body">' +
+                '<h4 class="card-title"><a href="' + card.link + '" target="_blank" rel="noopener">' + card.title + '</a></h4>' +
+                '<h5 class="card-title text-muted">' + card.authors + '</h5>' +
+                '<p class="card-text">' + card.body + '</p>' +
+                '</div></div>';
+            
+            $('#cards').append(cardHtml);
+        }
+        console.log('Publications loaded successfully!');
     }
-})
+});
