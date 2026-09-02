@@ -23,16 +23,23 @@ html, body {
   scroll-behavior: smooth;
 }
 
+/* The gradient lives on <html> so the star layers (z-index: -1) stay visible
+   through the body instead of being painted over by its background. */
+html {
+  background: radial-gradient(ellipse at bottom, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+  background-attachment: fixed;
+}
+
 .body-cover {
   overflow-x: hidden;
   overflow-y: auto;
-  background: radial-gradient(ellipse at bottom, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+  background: transparent;
   min-height: 100vh;
 }
 
 /* Fix stars positioning to prevent gaps */
 #stars, #stars2, #stars3 {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: -1;
@@ -73,6 +80,11 @@ a:hover {
   border-radius: 4px;
 }
 
+/* Page content spacing */
+main.inner {
+  padding: 2rem 0 1rem;
+}
+
 /* Container improvements */
 .container-cover {
   max-width: 600px;
@@ -84,6 +96,14 @@ a:hover {
   max-width: 900px;
   margin: 0 auto;
   padding: 2rem 1rem;
+}
+
+/* Long-form copy stays left-aligned even inside the centred layout */
+.card-text,
+.card-body > p,
+.card-body > ul,
+.card-body > ol {
+  text-align: left;
 }
 
 /* Card improvements */
@@ -173,11 +193,25 @@ a:hover {
 /* Iframe improvements */
 iframe {
   display: block;
-  width: 100%;
-  height: 600px;
+  max-width: 100%;
   border: none;
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
+}
+
+/* Don't override dimensions an embed sets for itself */
+iframe:not([width]) {
+  width: 100%;
+}
+
+iframe:not([height]) {
+  height: 600px;
+}
+
+/* Resume embed: fill the viewport instead of a fixed 600px box */
+.container-resume > iframe:not([height]) {
+  height: calc(100vh - 260px);
+  min-height: 480px;
 }
 
 /* Footer improvements */
@@ -213,10 +247,16 @@ html, body {
   min-height: 100% !important;
 }
 
+/* Thumbnail grids: one shared shape so rows line up */
+.gallery-grid img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
 /* Image gallery improvements */
 .img-fluid {
   border-radius: var(--border-radius);
-  margin: 0.5rem;
   transition: var(--transition);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -245,8 +285,13 @@ html, body {
     padding: 1rem;
   }
   
-  iframe {
+  iframe:not([height]) {
     height: 400px;
+  }
+  
+  .container-resume > iframe:not([height]) {
+    height: 70vh;
+    min-height: 420px;
   }
   
   .navbar-nav {
@@ -273,13 +318,15 @@ html, body {
     margin: 0.5rem;
   }
   
-  iframe {
+  iframe:not([height]) {
     height: 300px;
   }
   
-  .img-fluid {
-    margin: 0.25rem;
+  .container-resume > iframe:not([height]) {
+    height: 70vh;
+    min-height: 360px;
   }
+  
 }
 
 /* Animation improvements */
